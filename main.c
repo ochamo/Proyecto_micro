@@ -6,10 +6,10 @@
 // Para la lectura de los comandos.
 volatile static char input;
 static char tokens[64];
-// 5 posiciones porque el comando más largo ocupa 5 posiciones.
+// 5 posiciones porque el comando mï¿½s largo ocupa 5 posiciones.
 static char *parameters_commands[5] = {" ", " ", " ", " ", " "};
 static uint32_t command_counter;
-static uint32_t isCarriageReturn = 0;
+static uint32_t 	 = 0;
 
 void clock_config(void);
 
@@ -36,7 +36,7 @@ void setup_USART(uint32_t baudrate) {
 	//uint32_t round_result =  (uint32_t) ((SystemCoreClock/2)/baudrate); // (64Mhz/2)/baudrate
 	USART2->BRR = 277;
 	USART2->CR1 |= USART_CR1_TE + USART_CR1_RE;					// Habiliar recepcion y transmision
-	USART2->CR1 |= USART_CR1_RXNEIE;										// Interrupción recepcion
+	USART2->CR1 |= USART_CR1_RXNEIE;										// Interrupciï¿½n recepcion
 	USART2->CR1 |= USART_CR1_UE;
 	
 	NVIC_EnableIRQ(USART2_IRQn);
