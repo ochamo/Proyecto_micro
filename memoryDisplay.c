@@ -26,9 +26,8 @@ void memoryDisplay(void){
 	save_MD = (uint32_t *)malloc(sizeof(uint32_t) * array_memory_display);
     //Guardamos memoria
 	memory_MD = save_MD;
-    // mandamos los valores al ensamblador r0,r1,r2 
+    // mandamos los valores al ensamblador
 	ensamblador_memory_display(save_MD, start_display, end_display);
-	// Imprimir (printf)
     for(i=start_display; i<= end_display; i+=0x4){
         sprintf(md_character, "0x%08x", save_MD[contador]);
 		USART2_putSTring(md_character + "\n\r");
