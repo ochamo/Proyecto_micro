@@ -1,4 +1,4 @@
-//se cambio nombres de metodos y variables en donde esta un comentario con "----"
+
 
 #include "stm32f3xx.h"
 
