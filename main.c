@@ -106,8 +106,10 @@ void read_command() {
 		put_string_USART("Estas en el comando IOUNMAP \n\r");
 	} else if (strcmp(command, SOUND_COMMAND) == 0) {
 		put_string_USART("Estas en el comando SOUND \n\r");
+		run_buzzer();
 	} else if (strcmp(command, MUTE_COMMAND) == 0) {
 		put_string_USART("Estas en el comando MUTE \n\r");
+		run_buzzer();
 	} else if (strcmp(command, RGBOUT_COMMAND) == 0) {
 		put_string_USART("Estas en el comando RGBOUT \n\r");
 	} else if (strcmp(command, ARCADE_COMMAND) == 0) {
