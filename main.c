@@ -1,7 +1,12 @@
 #include "stm32f3xx.h"                  // Device header
 #include "usart_utils.h"
 #include "command_utils.h"
+#include "buzzer_utils.h"
 #include <stdio.h>
+
+//Arreglo de registros
+static uint32_t registros[15];
+char datos_registros[32];
 
 // Para la lectura de los comandos.
 volatile static char input;
@@ -9,9 +14,15 @@ static char tokens[64];
 // 5 posiciones porque el comando m�s largo ocupa 5 posiciones.
 static char *parameters_commands[5] = {" ", " ", " ", " ", " "};
 static uint32_t command_counter;
-static uint32_t 	 = 0;
+static uint32_t isCarriageReturn = 0;
 
-void clock_config(void);
+// variables para el buzzer
+static char *freq_buz;
+uint64_t numerical_value_freq;
+
+void RD(void);
+
+char *ptr;
 
 // Configuracion a 64Mhz
 void clock_config() {
@@ -72,7 +83,7 @@ void read_command() {
 	
 	//stcmp retora 0 si son iguales los string
 	if (strcmp(command, RD_COMMAND) == 0) {
-		put_string_USART("Estas en el comando RD \n\r");
+		RD();
 	} else if (strcmp(command, RM_COMMAND) == 0) {
 		put_string_USART("Estas en el comando RM \n\r");
 	} else if (strcmp(command, MD_COMMAND) == 0) {
@@ -137,4 +148,15 @@ int main(void) {
 	while (1) {
 	}
 	
+}
+
+void RD(void){
+	put_string_USART("Register Display\n\rr");
+	register_display(registros);
+	int x=0;
+	for(x = 0;x<15;x++){
+		sprintf(datos_registros, "0x%08x", registros[x]);
+		put_string_USART(datos_registros);
+		put_string_USART("\n\r");
+	}
 }

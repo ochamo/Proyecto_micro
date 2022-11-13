@@ -44,7 +44,7 @@ modifyR1
 	movs r1, r1
 	bx lr
 	
-setR2
+modifyR2
 	movs r2, r1
 	bx lr
 	
@@ -87,3 +87,6 @@ modifyR11
 modifyR12
 	movs r12, r1
 	bx lr
+	
+	end
+	

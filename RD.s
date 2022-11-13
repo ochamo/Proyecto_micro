@@ -3,7 +3,7 @@
 	REQUIRE8
 	PRESERVE8
 		
-	EXTERN register_display
+	EXPORT register_display
 		
 register_display
 	push{lr}
@@ -21,6 +21,8 @@ register_display
 	str r11,[r0,#44]
 	str r12,[r0,#48]
 	str r13,[r0,#52]
-	str r14.[r0,#56]
-	pop{pc]
-	bx{lr}
+	str r14,[r0,#56]
+	pop{pc}
+	bx lr
+	
+	end
