@@ -12,5 +12,3 @@ extern void ensamblador_run_address(uint32_t address);
 
 // funciones 
 void clock_config(void);
-
-void RD(void);

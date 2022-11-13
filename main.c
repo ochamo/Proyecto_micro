@@ -20,8 +20,9 @@ static uint32_t isCarriageReturn = 0;
 static char *freq_buz;
 uint64_t numerical_value_freq;
 
+void RD(void);
 
-
+char *ptr;
 
 // Configuracion a 64Mhz
 void clock_config() {
@@ -150,6 +151,7 @@ int main(void) {
 }
 
 void RD(void){
+	put_string_USART("Register Display");
 	register_display(*registros);
 	int x=0;
 	for(x = 0;x<15;x++){
