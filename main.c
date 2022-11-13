@@ -151,8 +151,8 @@ int main(void) {
 }
 
 void RD(void){
-	put_string_USART("Register Display");
-	register_display(*registros);
+	put_string_USART("Register Display\n\rr");
+	register_display(registros);
 	int x=0;
 	for(x = 0;x<15;x++){
 		sprintf(datos_registros, "0x%08x", registros[x]);
