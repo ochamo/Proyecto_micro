@@ -1,9 +1,9 @@
 
-unsigned long run_addr_dir;
-
-extern void ensamblador_run_address(uint32_t address);
+#include <stdint.h>
 
 
+
+/*unsigned long run_addr_dir;
 void RunAddress(void){
     char *RUN_ADDR= parameters_commands[1];
     char *run_address_indicador;
@@ -14,4 +14,4 @@ void RunAddress(void){
 	run_addr_dir = strtoul(RUN_ADDR, &run_address_indicador, 16);
 	//Mandamos run_addr_dir a funcion en ensamblador
 	ensamblador_run_address(run_addr_dir);
-}
+}*/

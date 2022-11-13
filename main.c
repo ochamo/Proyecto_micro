@@ -21,7 +21,7 @@ static char *freq_buz;
 uint64_t numerical_value_freq;
 
 
-void clock_config(void);
+
 
 // Configuracion a 64Mhz
 void clock_config() {
@@ -82,7 +82,7 @@ void read_command() {
 	
 	//stcmp retora 0 si son iguales los string
 	if (strcmp(command, RD_COMMAND) == 0) {
-		put_string_USART("Estas en el comando RD \n\r");
+		RD();
 	} else if (strcmp(command, RM_COMMAND) == 0) {
 		put_string_USART("Estas en el comando RM \n\r");
 	} else if (strcmp(command, MD_COMMAND) == 0) {
@@ -154,7 +154,7 @@ void RD(void){
 	int x=0;
 	for(x = 0;x<15;x++){
 		sprintf(datos_registros, "0x%08x", registros[x]);
-		USART2_putSTring(datos_registros);
-		USART2_putSTring("\n\r");
+		put_string_USART(datos_registros);
+		put_string_USART("\n\r");
 	}
 }
