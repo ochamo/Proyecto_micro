@@ -18,3 +18,5 @@ llenado_punteros
 	cmp r1, r2
 	ble llenado_punteros
 	pop { pc }
+
+	end

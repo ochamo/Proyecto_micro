@@ -16,10 +16,8 @@ void memoryDisplay(void){
     //Removemos character 'x'
 	quitarX(start_display, 'x');
 	quitarX(end_display, 'x');
-
 	memory_display_function = strtoul(start_display, &ptr, 16);
 	memory_display_function_fin = strtoul(end_display, &ptr, 16);
-
 	memory_display_function = memory_display_function;
 	memory_display_function_fin = memory_display_function_fin;
 	array_memory_display = ((memory_display_function_fin - memory_display_function) / 4) + 1;
