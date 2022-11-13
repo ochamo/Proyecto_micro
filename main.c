@@ -1,6 +1,7 @@
 #include "stm32f3xx.h"                  // Device header
 #include "usart_utils.h"
 #include "command_utils.h"
+#include "buzzer_utils.h"
 #include <stdio.h>
 
 // Para la lectura de los comandos.
@@ -9,7 +10,12 @@ static char tokens[64];
 // 5 posiciones porque el comando m�s largo ocupa 5 posiciones.
 static char *parameters_commands[5] = {" ", " ", " ", " ", " "};
 static uint32_t command_counter;
-static uint32_t 	 = 0;
+static uint32_t isCarriageReturn = 0;
+
+// variables para el buzzer
+static char *freq_buz;
+uint64_t numerical_value_freq;
+
 
 void clock_config(void);
 

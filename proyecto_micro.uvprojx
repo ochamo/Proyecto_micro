@@ -404,6 +404,26 @@
               <FileType>5</FileType>
               <FilePath>.\command_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>RD.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\RD.s</FilePath>
+            </File>
+            <File>
+              <FileName>RM.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\RM.s</FilePath>
+            </File>
+            <File>
+              <FileName>RUN.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\RUN.s</FilePath>
+            </File>
+            <File>
+              <FileName>RunAddress.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RunAddress.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
