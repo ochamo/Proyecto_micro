@@ -8,3 +8,4 @@
 
 extern void register_display(uint32_t *registerArray);
 extern void command_register_modify(int32_t registro, uint64_t data);
+extern void calladdr(uint32_t direccion);

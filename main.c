@@ -16,6 +16,7 @@ static uint32_t command_counter;
 static uint32_t isCarriageReturn = 0;
 
 void clock_config(void);
+void quitarX(char *dato);
 
 // Configuracion a 64Mhz
 void clock_config() {
@@ -148,7 +149,29 @@ void RD(void){
 	int x=0;
 	for(x = 0;x<15;x++){
 		sprintf(datos_registros, "0x%08x", registros[x]);
-		USART2_putSTring(datos_registros);
-		USART2_putSTring("\n\r");
+		put_string_USART(datos_registros);
+		put_string_USART("\n\r");
 	}
+}
+
+void call(void){
+	static char *pt;
+	uint32_t direccionCall;
+	direccionCall = parameters_commands[1];
+	quitarX(direccionCall);
+	uint32_t nuevaCall = strtoul(direccionCall,&pt,16);
+	calladdr(nuevaCall);
+}
+
+void quitarX(char *dato){
+	char *in, *out;
+	in = dato;
+	out = dato;
+	for (in; *in != '\0'; in++){
+		*out = *in;
+		if (*out != "x"){
+			out++;
+		}
+	}
+	*out = '\0';
 }
