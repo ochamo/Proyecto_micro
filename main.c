@@ -4,6 +4,10 @@
 #include "buzzer_utils.h"
 #include <stdio.h>
 
+//Arreglo de registros
+static uint32_t registros[15];
+char datos_registros[32];
+
 // Para la lectura de los comandos.
 volatile static char input;
 static char tokens[64];
@@ -143,4 +147,14 @@ int main(void) {
 	while (1) {
 	}
 	
+}
+
+void RD(void){
+	register_display(*registros);
+	int x=0;
+	for(x = 0;x<15;x++){
+		sprintf(datos_registros, "0x%08x", registros[x]);
+		USART2_putSTring(datos_registros);
+		USART2_putSTring("\n\r");
+	}
 }
