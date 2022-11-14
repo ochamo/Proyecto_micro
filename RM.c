@@ -30,8 +30,8 @@ void execute_registerMod(void)
 	USART2_putSTring("Comando Register Modify");
 	USART2_putSTring("\n\r");
 
-	pointer_registry = command_line[1];
-	dato = command_line[2];
+	pointer_registry = parameters_command[1];
+	dato = parameters_command[2];
 
     registro_display_indice = 0;
     while(registro_display_indice < getSize(pointer_registry)){
