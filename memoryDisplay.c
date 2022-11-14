@@ -7,8 +7,8 @@ uint32_t *save_MD;
 int contador = 0;
 
 void memoryDisplay(void){
-	char *start_display = command_line[1];
-	char *end_display = command_line[2];
+	char *start_display = parameters_commands[1];
+	char *end_display = parameters_commands[2];
     char *memory_display_indicador;
     long memory_display_function;
     long memory_display_function_fin;
