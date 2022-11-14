@@ -14,8 +14,8 @@ void memoryDisplay(void){
     long memory_display_function_fin;
 	USART2_putSTring("Memory Display\n\r");
     //Removemos character 'x'
-	quitarX(start_display, 'x');
-	quitarX(end_display, 'x');
+	quitarX(start_display);
+	quitarX(end_display);
 	memory_display_function = strtoul(start_display, &ptr, 16);
 	memory_display_function_fin = strtoul(end_display, &ptr, 16);
 	memory_display_function = memory_display_function;
