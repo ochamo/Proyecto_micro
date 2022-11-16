@@ -153,20 +153,6 @@ void IOMAP(void){
     }
     
 //-----------------------------------------------------------------------------------------
-    //DECLARAMOS ENTRADAS (IN)
-    //valores a,b,c,d referencia 4 push buttons
-    if( param_1 == 'D'){
-        var_io = 'd';
-    }else if( param_1 == 'C'){
-        var_io = 'c';
-    }else if( param_1 == 'B'){
-        var_io = 'b';
-    }else if( param_1 == 'A'){
-        var_io = 'a';
-    }else{
-        var_io= param_1;
-    }
-//-----------------------------------------------------------------------------------------
     if (param_3 == 'not'){
         if (counter_negation != 0){
             counter_negation = 0;
