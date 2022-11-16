@@ -10,7 +10,7 @@ void RunAddress(void){
     long run_addr_dir
 	USART2_putSTring("Run Address\n\r");
 	//Removemos Character
-	quitarX(RUN_ADDR, 'x');
+	quitarX(RUN_ADDR);
 	run_addr_dir = strtoul(RUN_ADDR, &ptr, 16);
 	//Mandamos run_addr_dir a funcion en ensamblador
 	ensamblador_run_address(run_addr_dir);

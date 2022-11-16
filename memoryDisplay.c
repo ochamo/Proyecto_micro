@@ -7,19 +7,17 @@ uint32_t *save_MD;
 int contador = 0;
 
 void memoryDisplay(void){
-	char *start_display = command_line[1];
-	char *end_display = command_line[2];
+	char *start_display = parameters_commands[1];
+	char *end_display = parameters_commands[2];
     char *memory_display_indicador;
     long memory_display_function;
     long memory_display_function_fin;
 	USART2_putSTring("Memory Display\n\r");
     //Removemos character 'x'
-	quitarX(start_display, 'x');
-	quitarX(end_display, 'x');
-
+	quitarX(start_display);
+	quitarX(end_display);
 	memory_display_function = strtoul(start_display, &ptr, 16);
 	memory_display_function_fin = strtoul(end_display, &ptr, 16);
-
 	memory_display_function = memory_display_function;
 	memory_display_function_fin = memory_display_function_fin;
 	array_memory_display = ((memory_display_function_fin - memory_display_function) / 4) + 1;
