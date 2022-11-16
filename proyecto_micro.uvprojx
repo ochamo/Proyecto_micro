@@ -424,6 +424,16 @@
               <FileType>5</FileType>
               <FilePath>.\buzzer_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>RUN.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\RUN.s</FilePath>
+            </File>
+            <File>
+              <FileName>calladdr.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\calladdr.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

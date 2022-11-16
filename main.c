@@ -4,8 +4,13 @@
 #include "buzzer_utils.h"
 #include <stdio.h>
 
+// funcion para direccion 
+void call(void);
+
 //comando que ejecuta la funcion en especifico
 void execute_registerMod(void);
+
+void RunAddress();
 
 //Arreglo de registros
 static uint32_t registros[15];
@@ -112,8 +117,10 @@ void read_command() {
 		put_string_USART("Estas en el comando BF \n\r");
 	} else if ((strcmp(command, RUN_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando RUN \n\r");
+		RunAddress();
 	} else if ((strcmp(command, CALL_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando CALL \n\r");
+		call();
 	} else if ((strcmp(command, IOMAP_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando IOMAP \n\r");
 	} else if ((strcmp(command, IOUNMAP_COMMAND)) == 0) {
@@ -170,13 +177,16 @@ int main(void) {
 	
 }
 
+char* direccionCall;
+unsigned long nuevaCall;
+
 void call(void){
-	static char *pt;
-	uint32_t direccionCall;
+	
 	direccionCall = parameters_commands[1];
 	quitarX(direccionCall);
-	uint32_t nuevaCall = strtoul(direccionCall,&pt,16);
-	//calladdr(nuevaCall);
+	nuevaCall = strtoul(direccionCall,&ptr,16);
+	calladdr(nuevaCall);
+	put_string_USART("Call terminado");
 }
 
 void quitarX(char *dato){
@@ -253,6 +263,31 @@ void execute_registerMod(void)
 	}
 }
 
+unsigned long run_addr_dir;
+void RunAddress(void){
+    char *RUN_ADDR= parameters_commands[1];
+    long run_addr_dir;
+		put_string_USART("Run Address\n\r");
+		//Removemos Character
+		quitarX(RUN_ADDR);
+		run_addr_dir = strtoul(RUN_ADDR, &ptr, 16);
+		//Mandamos run_addr_dir a funcion en ensamblador
+		ensamblador_run_address(run_addr_dir);
+}
+
+
+//comando que ejecuta la funcion en especifico
+void execute_blockFill(void);
+
+// variables necesarias de execute_blockFill
+static char *bf_start;
+static char *bf_end;
+static char *bf_data;
+static char *bf_size;
+int size_bf2 = 4;
+unsigned long start_bfLong;
+unsigned long end_bfLong;
+unsigned long data_bfLong;
 
 
 void run_buzzer() {
