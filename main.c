@@ -4,6 +4,8 @@
 #include "buzzer_utils.h"
 #include <stdio.h>
 
+
+
 //Arreglo de registros
 static uint32_t registros[15];
 char datos_registros[32];
@@ -196,17 +198,17 @@ void run_buzzer() {
 	config_buffer(numerical_value_freq);
 }
 
-void config_buffer(int32_t freq_hz) {
+void config_buzzer(uint32_t freq_hz) {
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN; // Reloj puerto A
-	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN; // clock habilita tim1
-	GPIOA->MODER |= (1<<21); // 10 funcion alternativa
+  RCC->APB2ENR |= RCC_APB2ENR_TIM1EN; // clock habilita tim1
+	GPIOA->MODER |= (1<<21); // PA10 funcion alternativa
 	GPIOA->AFR[1] |= (6<<8); // AF6 (TIM1CH3)
-	TIM1->PSC = 63; // 64 MHz/64 = 1MHz
-	TIM1->ARR = (SystemCoreClock/64)/freq_hz; // (fclk/fs), periodo 1ms, f=1kHz
-	TIM1->CCR3 = 0; // DC 0% capturar y comparar registro 3
-	TIM1->CCMR2 |= (0x6<<4) + (1<<3); // PWM mode 1 (clear output on compare), Preload Enable
+	TIM1->ARR = (SystemCoreClock/4)/(freq_hz);
+	TIM1->CCR3 = (SystemCoreClock / 4) / (freq_hz * 2);
+	TIM1->CCMR2 |= TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3PE; // Autoreload, Counter enable, Edge aligned, Upcounter
 	TIM1->CR1 |= TIM_CR1_ARPE | TIM_CR1_CEN; // Autoreload register + Counter Enable
 	TIM1->EGR |= TIM_EGR_UG; // reiniciar conteo
+	
 	TIM1->CCER |= TIM_CCER_CC3E;
 	TIM1->BDTR |= TIM_BDTR_MOE; // MOE: Main output enable
 }
