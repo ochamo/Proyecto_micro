@@ -4,7 +4,8 @@
 #include "buzzer_utils.h"
 #include <stdio.h>
 
-
+//comando que ejecuta la funcion en especifico
+void execute_registerMod(void);
 
 //Arreglo de registros
 static uint32_t registros[15];
@@ -29,6 +30,16 @@ char *buzzerPtr;
 
 void clock_config(void);
 void quitarX(char *dato);
+int32_t get_size(char*);
+
+// referencia https://stackoverflow.com/questions/6001661/how-to-find-the-length-of-an-char-array-in-c
+// 
+
+int32_t get_size(char* s) {
+	char *t;
+	for (t = s; *t != '\0'; t++);
+	return t - s;
+}
 
 // Configuracion a 64Mhz
 void clock_config() {
@@ -88,35 +99,36 @@ void read_command() {
 	char *command = parameters_commands[0];
 	
 	//stcmp retora 0 si son iguales los string
-	if (strcmp(command, RD_COMMAND) == 0) {
+	if ((strcmp(command, RD_COMMAND)) == 0) {
 		RD();
-	} else if (strcmp(command, RM_COMMAND) == 0) {
+	} else if ((strcmp(command, RM_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando RM \n\r");
-	} else if (strcmp(command, MD_COMMAND) == 0) {
+		execute_registerMod();
+	} else if ((strcmp(command, MD_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando MD \n\r");
-	} else if (strcmp(command, MM_COMMAND) == 0) {
+	} else if ((strcmp(command, MM_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando MM \n\r");
-	} else if (strcmp(command, BF_COMMAND) == 0) {
+	} else if ((strcmp(command, BF_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando BF \n\r");
-	} else if (strcmp(command, RUN_COMMAND) == 0) {
+	} else if ((strcmp(command, RUN_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando RUN \n\r");
-	} else if (strcmp(command, CALL_COMMAND) == 0) {
+	} else if ((strcmp(command, CALL_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando CALL \n\r");
-	} else if (strcmp(command, IOMAP_COMMAND) == 0) {
+	} else if ((strcmp(command, IOMAP_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando IOMAP \n\r");
-	} else if (strcmp(command, IOUNMAP_COMMAND) == 0) {
+	} else if ((strcmp(command, IOUNMAP_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando IOUNMAP \n\r");
-	} else if (strcmp(command, SOUND_COMMAND) == 0) {
+	} else if ((strcmp(command, SOUND_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando SOUND \n\r");
 		run_buzzer();
-	} else if (strcmp(command, MUTE_COMMAND) == 0) {
+	} else if ((strcmp(command, MUTE_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando MUTE \n\r");
 		run_buzzer();
-	} else if (strcmp(command, RGBOUT_COMMAND) == 0) {
+	} else if ((strcmp(command, RGBOUT_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando RGBOUT \n\r");
-	} else if (strcmp(command, ARCADE_COMMAND) == 0) {
+	} else if ((strcmp(command, ARCADE_COMMAND)) == 0) {
 		put_string_USART("Estas en el comando ARCADE \n\r");
-	} else if (strcmp(command, CLEAR_COMMAND) == 0) {
+	} else if ((strcmp(command, CLEAR_COMMAND)) == 0) {
 		put_string_USART("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r");
 		welcome_message();
 	} else {
@@ -164,7 +176,7 @@ void call(void){
 	direccionCall = parameters_commands[1];
 	quitarX(direccionCall);
 	uint32_t nuevaCall = strtoul(direccionCall,&pt,16);
-	calladdr(nuevaCall);
+	//calladdr(nuevaCall);
 }
 
 void quitarX(char *dato){
@@ -181,7 +193,7 @@ void quitarX(char *dato){
 }
 
 void RD(void){
-	put_string_USART("Register Display\n\rr");
+	put_string_USART("Register Display\n\r");
 	register_display(registros);
 	int x=0;
 	for(x = 0;x<15;x++){
@@ -191,11 +203,63 @@ void RD(void){
 	}
 }
 
+//se definio en ensamblador
+extern void registerModEnsamblador(int posicion_deseada, unsigned long dato); //-- funcion y variables
+
+
+
+// variables necesarias de execute_registerMod
+char posiciones[] = "";
+int registro_display_indice = 0;
+char rm_temporal1;
+int rm_temporal2;
+char *pointer_registry;
+char *dato;
+static char *pointer;
+
+
+void execute_registerMod(void)
+{
+
+	pointer_registry = parameters_commands[1];
+	dato = parameters_commands[2];
+
+    registro_display_indice = 0;
+    while(registro_display_indice < get_size(pointer_registry)){
+        if (pointer_registry[registro_display_indice] != 'R')
+		{
+			rm_temporal1 = pointer_registry[registro_display_indice];
+			// https://stackoverflow.com/questions/21022644/how-to-get-the-real-and-total-length-of-char-char-array
+			strncat(posiciones, &rm_temporal1, 1);
+		}
+        registro_display_indice = registro_display_indice + 1;
+    }
+
+	sscanf(posiciones, "%d", &rm_temporal2);
+
+	if (rm_temporal2 >= 0 & rm_temporal2 <= 15)
+	{
+
+		unsigned long ul;
+		char *sinPrefijox;
+		sinPrefijox = strtok(dato, "0x");
+		ul = strtoul(sinPrefijox, &pointer, 16);
+
+		registerModEnsamblador(rm_temporal2, ul);
+	}
+	else
+	{
+		put_string_USART("El registro deseado no es aceptado! \n");
+	}
+}
+
+
+
 void run_buzzer() {
 	freq_buz = parameters_commands[1];
 
 	numerical_value_freq = strtoul(freq_buz, &buzzerPtr, 10);
-	config_buffer(numerical_value_freq);
+	config_buzzer(numerical_value_freq);
 }
 
 void config_buzzer(uint32_t freq_hz) {

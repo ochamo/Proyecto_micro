@@ -415,11 +415,6 @@
               <FilePath>.\RM.s</FilePath>
             </File>
             <File>
-              <FileName>RUN.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\RUN.s</FilePath>
-            </File>
-            <File>
               <FileName>RunAddress.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RunAddress.c</FilePath>
@@ -428,11 +423,6 @@
               <FileName>buzzer_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\buzzer_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>calladdr.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\calladdr.s</FilePath>
             </File>
           </Files>
         </Group>
