@@ -1,6 +1,6 @@
 
 int counter_negation = 0;
-
+int pin = 0;
 
 char *param_1;
 char *param_2;
@@ -120,27 +120,35 @@ void IOMAP(void){
         if(param_2 == '7'){
             //PB_1 Output
             GPIOB->MODER |= (1 << 2);  
+            pin=1;
         }else if(param_2 == '6'){
             //PB_2 Output
             GPIOB->MODER |= (1 << 4); 
+            pin=2;
         }else if(param_2 == '5'){
             //PB_3 Output
             GPIOB->MODER |= (1 << 6); 
+            pin=3;
         }else if(param_2 == '4'){
             //PB_4 Output
             GPIOB->MODER |= (1 << 8); 
+            pin=4;
         }else if(param_2 == '3'){
             //PB_5 Output
             GPIOB->MODER |= (1 << 10); 
+            pin=5
         }else if(param_2 == '2'){
             //PB_6 Output
             GPIOB->MODER |= (1 << 12); 
+            pin=6;
         }else if(param_2 == '1'){
             //PB_7 Output
             GPIOB->MODER |= (1 << 14); 
+            pin=7;
         }else if(param_2 == '0'){
             //PB_8 Output
             GPIOB->MODER |= (1 << 16); 
+            pin=8;
         }
     }
     
@@ -197,15 +205,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR10){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 10)){
-                GPIOB -> ODR |= (1 << 3);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 3);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 10)){
-                GPIOB -> ODR |= ~(1 << 3);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 3);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR10; 
@@ -214,15 +222,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR11){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 11)){
-                GPIOB -> ODR |= (1 << 4);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 4);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 11)){
-                GPIOB -> ODR |= ~(1 << 4);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 4);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR11; 
@@ -231,15 +239,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR12){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 12)){
-                GPIOB -> ODR |= (1 << 5);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 5);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 12)){
-                GPIOB -> ODR |= ~(1 << 5);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 5);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR12; 
@@ -248,15 +256,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR13){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 13)){
-                GPIOB -> ODR |= (1 << 6);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 6);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 13)){
-                GPIOB -> ODR |= ~(1 << 6);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 6);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR13; 
@@ -265,15 +273,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR14){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 14)){
-                GPIOB -> ODR |= (1 << 7);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 7);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 14)){
-                GPIOB -> ODR |= ~(1 << 7);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 7);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR14; 
@@ -282,15 +290,15 @@ void EXTI15_10_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR15){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 15)){
-                GPIOB -> ODR |= (1 << 8);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 8);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 15)){
-                GPIOB -> ODR |= ~(1 << 8);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 8);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR15; 
@@ -301,15 +309,15 @@ void EXTI9_5_IRQHandler(void){
     if (EXTI->PR & EXTI_PR_PR9){
         if(counter_negation == 0){
             if(GPIOB -> IDR & (1<< 9)){
-                GPIOB -> ODR |= (1 << 2);
+                GPIOB -> ODR |= (1 << pin);
             }else{
-                GPIOB -> ODR |= ~(1 << 2);
+                GPIOB -> ODR |= ~(1 << pin);
             }
         }else{
             if(GPIOB -> IDR & (1<< 9)){
-                GPIOB -> ODR |= ~(1 << 2);
+                GPIOB -> ODR |= ~(1 << pin);
             }else{
-                GPIOB -> ODR |= (1 << 2);
+                GPIOB -> ODR |= (1 << pin);
             }
         }
         EXTI->PR |= EXTI_PR_PR5; 
@@ -320,15 +328,15 @@ void EXTI9_5_IRQHandler(void){
 void EXTI0_IRQHandler(void){
     if(counter_negation == 0){
         if(GPIOB -> IDR & (1<< 0)){
-            GPIOB -> ODR |= (1 << 1);
+            GPIOB -> ODR |= (1 << pin);
         }else{
-            GPIOB -> ODR |= ~(1 << 1);
+            GPIOB -> ODR |= ~(1 << pin);
         }
     }else{
         if(GPIOB -> IDR & (1<< 0)){
-            GPIOB -> ODR |= ~(1 << 1);
+            GPIOB -> ODR |= ~(1 << pin);
         }else{
-            GPIOB -> ODR |= (1 << 1);
+            GPIOB -> ODR |= (1 << pin);
         }
     }
     EXTI->PR |= EXTI_PR_PR0; 
