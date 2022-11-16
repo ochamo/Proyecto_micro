@@ -8,7 +8,7 @@ void RunAddress(void){
     char *RUN_ADDR= parameters_commands[1];
     char *ptr;
     long run_addr_dir
-	USART2_putSTring("Run Address\n\r");
+	put_string_USART("Run Address\n\r");
 	//Removemos Character
 	quitarX(RUN_ADDR);
 	run_addr_dir = strtoul(RUN_ADDR, &ptr, 16);

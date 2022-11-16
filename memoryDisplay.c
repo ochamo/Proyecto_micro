@@ -18,7 +18,7 @@ void memoryDisplay(void){
 	start_display = parameters_commands[1];
 	end_display = parameters_commands[2];
     
-	USART2_putSTring("Memory Display \n\r");
+	put_string_USART("Memory Display \n\r");
     //Removemos character 'x'
 	quitarX(start_display);
 	quitarX(end_display);
@@ -35,8 +35,8 @@ void memoryDisplay(void){
 	char i;
     for(i=start_display; i<= end_display; i+=0x4){
         sprintf(md_character, "0x%08x", save_MD[contador]);
-		USART2_putSTring(md_character);
-		USART2_putSTring("\n\r");
+		put_string_USART(md_character);
+		put_string_USART("\n\r");
 		contador++;
     }
 
@@ -44,8 +44,8 @@ void memoryDisplay(void){
 		while (start_display <= end_display){
 		sprintf(md_character, "0x%08x", save_MD[contador]);
 		contador++;
-		USART2_putSTring(md_character);
-		USART2_putSTring("\n\r");
+		put_string_USART(md_character);
+		put_string_USART("\n\r");
 		start_display += 0x4;
 	}
 	
